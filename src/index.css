@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'NetflixSans-Medium';
+  src: url('./assets/font/NetflixSans-Medium.woff2') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --main-font: 'NetflixSans-Medium', sans-serif;
+    color-scheme: dark; 
+}
+
+body {
+  font-family: var(--main-font);
+}
+
