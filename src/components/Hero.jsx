@@ -1,88 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Navbar from "./Navbar.jsx";
-import { Star, Menu } from 'lucide-react';
+import netflix from '../assets/netflix.jpg';
+import Logo from '../assets/Logo.png';
+import { ChevronRight } from 'lucide-react';
 
 const Hero = () => {
-    const [recipes, setRecipes] = useState([]);
-    const [search, setSearch] = useState("");
-    const [filterTag, setFilterTag] = useState("");
-    const [filterName, setFilterName] = useState("");
-
-    useEffect(() => {
-        fetch("https://dummyjson.com/recipes")
-            .then((res) => res.json())
-            .then((data) => setRecipes(data.recipes))
-            .catch((error) => console.error("Error fetching recipes:", error));
-    }, []);
-
-    const filteredRecipes = recipes.filter(
-        (recipe)=>
-            recipe.name.toLowerCase().includes(search.toLowerCase()) &&
-            (filterTag === "" || recipe.tags.includes(filterTag)) && (filterName === "" || recipe.name=== filterName)
-    )
-
-    return (
-        <div className="flex flex-row">
-            <Navbar search={search} setSearch={setSearch} setFilterTag={setFilterTag} setFilterName={setFilterName}/>
-            <div className="flex flex-wrap gap-6 items-center  mt-8 ml-10 md:ml-0 md:mt-0 md:p-14 w-1/2 md:w-full justify-center">
-                {filteredRecipes.length > 0 ? (
-                    filteredRecipes.map((recipe) => (
-                        <div
-                            key={recipe.id}
-                            className="border border-gray-300 rounded-lg shadow-md w-[300px] flex flex-col items-center bg-[#FFFADA] hover:shadow-lg transition duration-300 hover:scale-110 h-[440px] px-2 py-2 md:p-0"
-                        >
-                            <Link to={`/recipe/${recipe.id}`}>
-                                <img
-                                    src={recipe.image}
-                                    alt={recipe.name}
-                                    className="object-cover h-[200px] w-[300px]  cursor-pointer"
-                                />
-                            </Link>
-                            <div className="flex flex-col justify-start items-start">
-                                <h1 className="text-lg font-semibold mt-4 text-center text-black">{recipe.name}</h1>
-                                <div className="text-yellow-400 flex flex-row gap-x-2 items-center ">
-                                    <Star className="w-4 h-4 fill-yellow-400 text-black" />
-                                    {recipe.rating}
-                                </div>
-                                <div className="flex flex-row gap-x-3">
-                                    {recipe.tags?.slice(0, 2).map((tag, index)=>(
-                                        <p key={index} className="bg-gray-100 text-xs p-0.5 rounded">
-                                            {tag}
-                                        </p>
-                                    ))}
-                                </div>
-
-                                <div className="text-sm mt-2"><p><span className="font-medium">Cuisine:</span>{recipe.cuisine}</p>
-                                    <p><span className="font-medium">
-                                    Difficulty:
-                                </span>
-                                        {recipe.difficulty}</p>
-                                    <p><span className="font-medium">
-                                    Prep Time:
-                                </span>
-                                        {recipe.prepTimeMinutes}</p>
-                                    <p><span className="font-medium">
-                                    Cook Time:
-                                </span>
-                                        {recipe.cookTimeMinutes}</p>
-                                </div>
-
-                                <Link to={`/recipe/${recipe.id}`}>
-                                    <button className="btn-clr">
-                                        View Recipe
-                                    </button>
-
-                                </Link>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    <p className="text-gray-600 text-xl">Loading...</p>
-                )}
+  return (
+      <div
+        className="h-screen bg-cover bg-center w-full relative md:bg-cover sm:bg-cover"
+        style={{ backgroundImage: `url(${netflix})` }}>
+            <div className='bg-black w-full h-full bg-opacity-50'>
+                <div className='flex text-center justify-between items-center py-10 px-10'>
+                    <img src={Logo} alt="logo" className='lg:w-[190px] w-[80px] lg:ml-[80px]' />
+                    <div className='text-xs lg:text-base lg:mr-[50px]'>
+                        <button className='mx-3 border px-1 py-1 bg-black bg-opacity-50 border-neutral-500 lg:w-[90px]  lg:px-4'>English</button>
+                        <button className='bg-[rgb(229,9,20)] px-4 py-1 rounded-lg  lg:w-[90px]'>Sign In</button>
+                    </div>
+                </div>
+            <div className='flex flex-col justify-center items-center mt-10 text-center'>
+                <h1 className='text-4xl lg:text-5xl flex-col lg:w-[500px] font-bold w-[290px] '>
+                    Unlimited movies, TV shows and more
+                </h1>
+                <p className='mt-3 lg:text-xl'>
+                    Starts at ₹149. Cancel at any time
+                </p>
+                <p className='mt-4 ml-6 lg:text-base'>
+                Ready to watch? Enter your email to create or restart your membership
+                </p>
             </div>
-        </div>
-    );
+            <div className='flex lg:flex-row flex-col items-center justify-center mt-3 '>
+                <input type="text" className='w-[250px] h-14  border border-neutral-400 mr-2 lg:w-[350px] lg:h-[70px] mb-4 lg:mb-0' placeholder='   Email address'/>
+
+                <button className='flex bg-[rgb(229,9,20)] px-7 py-[17px] rounded-lg lg:text-xl text-xl lg:h-[70px]'>Get Started <ChevronRight /></button>
+            </div>
+            </div>
+      </div>
+  );
 };
 
 export default Hero;
